@@ -1,0 +1,2 @@
+﻿Google.HomePage.SearchBox.Txt://input[@name='q']
+Google.HomePage.SearchButton.Btn://input[@name='btnK']
