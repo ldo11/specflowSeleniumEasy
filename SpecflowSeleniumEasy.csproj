@@ -89,6 +89,7 @@
     <Compile Include="Hooks\Hooks.cs" />
     <Compile Include="Hooks\Webelementsandvars.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StepDefinitions\CoreSQLServerStepDefinitions.cs" />
     <Compile Include="StepDefinitions\CoreUIVerificationStepDefinitions.cs" />
     <Compile Include="StepDefinitions\CoreUIActionsStepDefinitions.cs" />
     <Compile Include="StepDefinitions\CoreVariablesStepDefinitions.cs" />
@@ -96,11 +97,13 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="Features\CoreUI.feature" />
+    <None Include="Features\CoreSQLServer.feature" />
     <None Include="Features\CoreVariables.feature" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Content Include="PageObjects\Luatsqa.txt" />
     <Content Include="PageObjects\Google.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

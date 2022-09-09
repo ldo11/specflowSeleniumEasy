@@ -65,7 +65,7 @@ namespace luatsqa.coreauto
 
         public bool Displayed => Current.Displayed;
 
-
+       
 
         public void Clear()
         {
@@ -143,7 +143,7 @@ namespace luatsqa.coreauto
             else
                 return true;
         }
-        public void SelectText(string text)
+        public void SelectByText(string text)
         {
             string ListOptions = "";
             try
@@ -170,7 +170,7 @@ namespace luatsqa.coreauto
         public string Getselectedoption()
         {
             SelectElement oSel = new SelectElement(Current);
-            return oSel.SelectedOption.ToString();
+            return oSel.SelectedOption.Text;
         }
 
 
@@ -209,7 +209,16 @@ namespace luatsqa.coreauto
             return options;
         }
 
-
+        public string GetallOptiontostring()
+        {
+            SelectElement oSel = new SelectElement(Current);
+            List<string> options = new List<string>();
+            foreach (IWebElement e in oSel.Options)
+            {
+                options.Add(e.Text);
+            }
+            return String.Join(", ", options.ToArray());
+        }
 
         public void SelectbyIndex(int index)
         {

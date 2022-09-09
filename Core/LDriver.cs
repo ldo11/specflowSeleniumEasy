@@ -80,18 +80,7 @@ namespace luatsqa.coreauto
             WaitPageLoadJS();
             try
             {
-                try
-                {
-                    Wait.Until(drvr => drvr.FindElement(by));
-                }
-                catch (NoSuchElementException e)
-                {
-                    Console.WriteLine(DateTime.Now.ToString() + "--Still waitting element! " + e.InnerException);
-                }
                 var element = Wait.Until(drvr => drvr.FindElement(by));
-
-
-
                 Console.WriteLine(DateTime.Now.ToString() + "--Element was found by" + by.ToString());
                 return new Element(element, elementName, Wait)
                 {
@@ -100,9 +89,7 @@ namespace luatsqa.coreauto
             }
             catch (Exception e)
             {
-                Console.WriteLine(DateTime.Now.ToString() + "--Element not found by " + by.ToString() + " with error: " + e.Message);
-                return null;
-                //throw new Exception("Element not found by " + by.ToString() + " with error: " + e.InnerException);
+                throw new Exception("Element not found by " + by.ToString() + " with error: " + e.InnerException);
             }
         }
         public Element FindElementMAYNULL(string xpathid,string elementName)
@@ -123,6 +110,15 @@ namespace luatsqa.coreauto
             }
         }
 
+        public Elements FindElements(string xpathid)
+        {
+            By by = TranslateBy(xpathid);
+            WaitPageLoadJS();
+            return new Elements(Current.FindElements(by))
+            {
+                FoundBy = by
+            };
+        }
 
 
         public bool IsElementPresent(By locatorKey)
@@ -180,13 +176,7 @@ namespace luatsqa.coreauto
                 return null;
             }
         }
-        public Elements FindElements(By by)
-        {
-            return new Elements(Current.FindElements(by))
-            {
-                FoundBy = by
-            };
-        }
+       
 
 
 

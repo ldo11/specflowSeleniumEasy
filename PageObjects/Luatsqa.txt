@@ -1,0 +1,5 @@
+﻿Luatsqa.practies.page1.select1.sel://select[@id='select1'] 
+Luatsqa.practies.page1.iframe.submit.button://input[@name='iframesubmit'] 
+Luatsqa.practies.page1.navigationtopage2.lbl://a[@href='index2.html'] 
+Luatsqa.practies.page1.authorintroduce.lbl://b[@id='textcontains'] 
+Luatsqa.practies.page2.disable.Btn://button[@id='diablebutton'] 
