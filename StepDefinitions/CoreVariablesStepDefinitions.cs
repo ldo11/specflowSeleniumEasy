@@ -29,6 +29,7 @@ namespace SpecflowSeleniumEasy.StepDefinitions
                 value = currentcontext[value].ToString();
             }
             currentcontext[varname] = value;
+            currentcontext["HTMLLOG"] = "SAVE " + value + " ===> " + varname;
         }
         [Given(@"Assign value ""([^""]*)"" to global variables ""([^""]*)""")]
         [When(@"Assign value ""([^""]*)"" to global variables ""([^""]*)""")]
@@ -39,6 +40,7 @@ namespace SpecflowSeleniumEasy.StepDefinitions
                 value = currentcontext[value].ToString();
             }
             Environment.SetEnvironmentVariable(varname,value);
+            currentcontext["HTMLLOG"] = "SAVE GLOBAL " + value + " ===> " + varname;
         }
 
         [Then(@"Verify local variable ""([^""]*)"" has value ""([^""]*)""")]
@@ -48,7 +50,9 @@ namespace SpecflowSeleniumEasy.StepDefinitions
             {
                 value = currentcontext[value].ToString();
             }
-            Assert.AreEqual(value, currentcontext[varname]);
+            currentcontext["HTMLLOG"] = "COMPARE expected : " + value + " with current value:" + currentcontext[varname];
+            Assert.AreEqual(value, currentcontext[varname].ToString());
+            
         }
 
         [Then(@"Verify Global variable ""([^""]*)"" has value ""([^""]*)""")]
@@ -58,6 +62,7 @@ namespace SpecflowSeleniumEasy.StepDefinitions
             {
                 value = currentcontext[value].ToString();
             }
+            currentcontext["HTMLLOG"] = "COMPARE expected : " + value + " with current value:" + Environment.GetEnvironmentVariable(varname);
             Assert.AreEqual(value, Environment.GetEnvironmentVariable(varname));
         }
 
@@ -68,6 +73,7 @@ namespace SpecflowSeleniumEasy.StepDefinitions
             {
                 value = currentcontext[value].ToString();
             }
+            currentcontext["HTMLLOG"] = "COMPARE expected : " + value + " = current value:" + currentcontext[varname].ToString();
             Assert.AreEqual(value, currentcontext[varname].ToString());
         }
 

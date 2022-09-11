@@ -24,6 +24,7 @@ namespace SpecflowSeleniumEasy.StepDefinitions
         public void WhenSetUpConnectionString(string connectionstring)
         {
             currentcontext["LSQLSERVERCONNECTION"] = connectionstring;
+            currentcontext["HTMLLOG"] = connectionstring;
         }
 
         [When(@"Execute SQL query ""([^""]*)"" and save result")]
@@ -31,6 +32,7 @@ namespace SpecflowSeleniumEasy.StepDefinitions
         {
             try
             {
+                currentcontext["HTMLLOG"] = query;
                 if (currentcontext.ContainsKey(query))
                 {
                     query = currentcontext[query].ToString();
@@ -69,6 +71,7 @@ namespace SpecflowSeleniumEasy.StepDefinitions
             DataTable dataTable = (DataTable)currentcontext["LSQLSERVERQUERIESRESULT"];
             string value = dataTable.Rows[Int32.Parse(row)][Int32.Parse(col)].ToString();
             currentcontext[varname] = value;
+            currentcontext["HTMLLOG"] = "SAVE "+row + ":" + col + " = " + value + " ===> " + varname;
         }
 
         [Then(@"Verify result at row ""([^""]*)"" and column ""([^""]*)"" contains ""([^""]*)""")]
@@ -88,9 +91,8 @@ namespace SpecflowSeleniumEasy.StepDefinitions
             }
             DataTable dataTable = (DataTable)currentcontext["LSQLSERVERQUERIESRESULT"];
             string dbvalue = dataTable.Rows[Int32.Parse(row)][Int32.Parse(col)].ToString();
-
+            currentcontext["HTMLLOG"] = row + ":" + col + " = " + value ;
             StringAssert.Contains(dbvalue, value, "Query result do not contains " + value);
-
         }
         [Then(@"Verify result contains list below")]
         public void ThenVerifyResultContainsListBelow(Table table)
@@ -98,6 +100,7 @@ namespace SpecflowSeleniumEasy.StepDefinitions
             DataTable dataTable = (DataTable)currentcontext["LSQLSERVERQUERIESRESULT"];
             foreach (TableRow row in table.Rows)
             {
+                currentcontext["HTMLLOG"] = currentcontext["HTMLLOG"] + dataTable.Rows[0][row["columnName"]].ToString() + " === COMPARE WITH === " + row["Value"].ToString();
                 StringAssert.Contains(dataTable.Rows[0][row["columnName"]].ToString(), row["Value"].ToString());
             }
         }

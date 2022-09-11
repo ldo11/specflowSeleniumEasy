@@ -27,7 +27,7 @@ namespace luatsqa.coreauto
 
 
 
-        public void AddStepResult(int result, string stepdescription, string log, string screenshot = null)
+        public void AddStepResult(int result, string stepdescription, string log, string screenshot = null, string errormessage = null)
         {
             string row = " <tr class=\"event-row\">";
             string id = DateTime.Now.Ticks.ToString();
@@ -47,11 +47,18 @@ namespace luatsqa.coreauto
                     break;
             }
             row = row + "<td>" + DateTime.Now.ToString("HH:mm:ss") + "</td><td>" + stepdescription;
+            
+            
             if (screenshot != null && screenshot.Length > 0)
             {
                 row = row + "<a href='data:image/png;base64, " + screenshot + "' data-featherlight='image'><span class='label grey badge white-text text-white'>base64-img</span></a>";
             }
-            row = row + "<span class=\"grey badge\" onclick=\"myFunction('" + id + "')\">Log Detail</span></td></tr><tr style=\"display: none;\" id=\"" + id + "\"><td colspan=\"3\">" + log + "</td></tr>";
+            row = row + "<span class=\"grey badge\" onclick=\"myFunction('" + id + "')\">Log Detail</span></td></tr><tr style=\"display: none;\" id=\"" + id + "\"><td colspan=\"3\">" + log;
+            if (errormessage != null)
+            {
+                row = row + "<div class='error'>Error Message: " + errormessage + "</div></td>";
+            }
+            row = row + "</tr>";
             lines.Add(row);
         }
 
@@ -79,6 +86,13 @@ namespace luatsqa.coreauto
 <link href = \https://cdn.jsdelivr.net/gh/extent-framework/extent-github-cdn@8539670db814bf19a0ddbe9a6d19058aea0cf981/spark/css/spark-style.css\ rel = \stylesheet\ />
 
 <link href = \https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css\ rel = \stylesheet\ />
+
+<style>
+.error{
+			color: #D8000C;
+			background-color: #FFBABA;
+		}
+</style>
 
 </head>
 <script>
